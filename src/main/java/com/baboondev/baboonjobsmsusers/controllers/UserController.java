@@ -46,9 +46,9 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity signUp(@RequestParam String role, @RequestBody User user) {
         try {
-            userService.signUp(user, role);
+            UserDto userDto = userService.signUp(user, role);
             logger.info("User signed up successfully");
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(userDto);
         } catch (UserExistsException e) {
             logger.error(String.format("User %s already exists", user.getEmail()));
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());

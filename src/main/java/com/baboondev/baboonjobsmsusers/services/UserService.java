@@ -44,11 +44,12 @@ public class UserService {
         String token = JwtUtil.generateToken(userDB);
 
         userDto.setToken(token);
+        userDto.setRole(userDB.getRole().getName());
 
         return userDto;
     }
 
-    public void signUp(User user, String role) throws InvalidRoleException, UserExistsException {
+    public UserDto signUp(User user, String role) throws InvalidRoleException, UserExistsException {
         Role roleDB = roleRepository.findByName(role);
 
         if (roleDB == null)
@@ -62,6 +63,15 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(roleDB);
 
-        userRepository.save(user);
+        User userRegistered = userRepository.save(user);
+
+        String token = JwtUtil.generateToken(userRegistered);
+
+        UserDto userDto = UserMapper.mapUserToDto(userRegistered);
+
+        userDto.setToken(token);
+        userDto.setRole(role);
+
+        return userDto;
     }
 }
