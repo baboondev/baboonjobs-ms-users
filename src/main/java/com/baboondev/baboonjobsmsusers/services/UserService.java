@@ -44,8 +44,7 @@ public class UserService {
         String token = JwtUtil.generateToken(userDB);
 
         userDto.setToken(token);
-        userDto.setRole(userDB.getRole().getName());
-
+        
         return userDto;
     }
 
@@ -70,7 +69,17 @@ public class UserService {
         UserDto userDto = UserMapper.mapUserToDto(userRegistered);
 
         userDto.setToken(token);
-        userDto.setRole(role);
+
+        return userDto;
+    }
+
+    public UserDto getUserById(String id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElse(null);
+
+        if (user == null)
+            throw new UserNotFoundException("User does not exists");
+
+        UserDto userDto = UserMapper.mapUserToDto(user);
 
         return userDto;
     }

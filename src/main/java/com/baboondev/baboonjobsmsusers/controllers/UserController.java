@@ -57,4 +57,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/{id}")
+    public ResponseEntity getUserById(@PathVariable String id) {
+        try {
+            UserDto userDto = userService.getUserById(id);
+            return ResponseEntity.ok(userDto);
+        } catch (UserNotFoundException e) {
+            logger.error(String.format("User %s not found", id));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
