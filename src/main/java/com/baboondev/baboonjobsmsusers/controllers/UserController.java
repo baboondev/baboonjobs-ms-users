@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins="*", methods = {RequestMethod.POST})
+@CrossOrigin(origins="*", methods = {RequestMethod.POST, RequestMethod.GET})
 @RequestMapping("auth")
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
