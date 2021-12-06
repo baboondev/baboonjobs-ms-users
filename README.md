@@ -66,7 +66,7 @@ The application is deployed on the following cloud services:
 
 ```shell
 # Clone project
-> git clone https://github.com/baboondev/baboonjobs-ms-jobs.git
+> git clone https://github.com/baboondev/baboonjobs-ms-users.git
 > cd baboonjobs-ms-users
 # After config properties, Install mvn dependencies
 > mvn clean install
